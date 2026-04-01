@@ -1,0 +1,1531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wisdom & Wellness — Mobile App Strategy Report · Sevenstudios</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black: #0a0a0a;
+    --white: #f5f3ee;
+    --cream: #ede9e1;
+    --accent: #c8f000;
+    --mid: #6b6b6b;
+    --border: rgba(255,255,255,0.1);
+    --border-dark: rgba(0,0,0,0.12);
+    --section-pad: clamp(60px, 8vw, 120px);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ── NAVBAR ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 40px;
+    background: rgba(10,10,10,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    letter-spacing: 0.04em;
+    color: var(--white);
+    text-decoration: none;
+  }
+
+  .nav-tag {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: rgba(200,240,0,0.1);
+    border: 1px solid rgba(200,240,0,0.3);
+    padding: 5px 12px;
+    border-radius: 2px;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 28px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--mid);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--white); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 120px 40px 60px;
+    position: relative;
+    border-bottom: 1px solid var(--border);
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 80% 20%, rgba(200,240,0,0.06) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 60% at 10% 80%, rgba(200,240,0,0.03) 0%, transparent 50%);
+  }
+
+  .hero-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+    background-size: 80px 80px;
+  }
+
+  .hero-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 28px;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.2s forwards;
+  }
+
+  .hero-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(72px, 11vw, 160px);
+    line-height: 0.9;
+    letter-spacing: 0.01em;
+    color: var(--white);
+    max-width: 900px;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.4s forwards;
+  }
+
+  .hero-title span {
+    color: var(--accent);
+    display: inline-block;
+  }
+
+  .hero-meta {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-top: 48px;
+    padding-top: 32px;
+    border-top: 1px solid var(--border);
+    opacity: 0;
+    animation: fadeUp 0.8s 0.6s forwards;
+  }
+
+  .hero-desc {
+    max-width: 520px;
+    font-size: 15px;
+    color: rgba(245,243,238,0.6);
+    font-weight: 300;
+    line-height: 1.7;
+  }
+
+  .hero-stats {
+    display: flex;
+    gap: 40px;
+    flex-shrink: 0;
+  }
+
+  .stat {
+    text-align: right;
+  }
+
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 36px;
+    color: var(--white);
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--mid);
+    margin-top: 4px;
+  }
+
+  /* ── LAYOUT ── */
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 40px;
+  }
+
+  /* ── TOC ── */
+  .toc-section {
+    padding: var(--section-pad) 40px;
+    border-bottom: 1px solid var(--border);
+    background: #0f0f0f;
+  }
+
+  .toc-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 80px;
+  }
+
+  .toc-header h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 42px;
+    line-height: 1;
+    color: var(--white);
+    margin-bottom: 12px;
+  }
+
+  .toc-header p {
+    font-size: 13px;
+    color: var(--mid);
+    line-height: 1.6;
+  }
+
+  .toc-list {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .toc-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border);
+    text-decoration: none;
+    color: var(--white);
+    transition: all 0.2s;
+    cursor: pointer;
+  }
+
+  .toc-item:hover { color: var(--accent); }
+  .toc-item:hover .toc-num { color: var(--accent); border-color: var(--accent); }
+
+  .toc-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--mid);
+    border: 1px solid rgba(255,255,255,0.15);
+    padding: 3px 8px;
+    border-radius: 2px;
+    min-width: 36px;
+    text-align: center;
+    transition: all 0.2s;
+  }
+
+  .toc-title {
+    font-size: 14px;
+    font-weight: 500;
+    flex: 1;
+  }
+
+  .toc-arrow {
+    color: var(--mid);
+    font-size: 18px;
+    transition: transform 0.2s;
+  }
+
+  .toc-item:hover .toc-arrow { transform: translateX(4px); }
+
+  /* ── EXEC SUMMARY ── */
+  .exec-section {
+    padding: var(--section-pad) 40px;
+    background: var(--accent);
+    border-bottom: 1px solid rgba(0,0,0,0.15);
+  }
+
+  .exec-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+
+  .exec-left h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(48px, 6vw, 80px);
+    line-height: 0.95;
+    color: var(--black);
+    margin-bottom: 20px;
+  }
+
+  .exec-left p {
+    font-size: 14px;
+    color: rgba(0,0,0,0.6);
+    line-height: 1.7;
+    max-width: 380px;
+  }
+
+  .exec-right {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding-top: 8px;
+  }
+
+  .exec-point {
+    background: rgba(0,0,0,0.06);
+    border-left: 3px solid var(--black);
+    padding: 18px 20px;
+  }
+
+  .exec-point p {
+    font-size: 14px;
+    color: var(--black);
+    line-height: 1.6;
+    font-weight: 400;
+  }
+
+  .exec-point strong { font-weight: 700; }
+
+  /* ── CONTENT SECTIONS ── */
+  .report-section {
+    padding: var(--section-pad) 40px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .report-section:nth-child(even) {
+    background: #0c0c0c;
+  }
+
+  .section-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 32px;
+    margin-bottom: 56px;
+    padding-bottom: 32px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .section-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 100px;
+    line-height: 0.85;
+    color: rgba(255,255,255,0.06);
+    flex-shrink: 0;
+    margin-top: -8px;
+  }
+
+  .section-title-block {
+    padding-top: 4px;
+  }
+
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 10px;
+  }
+
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(32px, 4vw, 52px);
+    line-height: 1;
+    color: var(--white);
+  }
+
+  /* ── GRID LAYOUTS ── */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; }
+  .three-col { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+
+  /* ── CARDS ── */
+  .card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border);
+    padding: 28px;
+    transition: border-color 0.3s;
+  }
+
+  .card:hover { border-color: rgba(200,240,0,0.3); }
+
+  .card-icon {
+    font-size: 24px;
+    margin-bottom: 16px;
+  }
+
+  .card h4 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    letter-spacing: 0.03em;
+    color: var(--white);
+    margin-bottom: 12px;
+  }
+
+  .card p {
+    font-size: 13px;
+    color: rgba(245,243,238,0.55);
+    line-height: 1.7;
+  }
+
+  /* ── HIGHLIGHT BOX ── */
+  .highlight-box {
+    background: rgba(200,240,0,0.06);
+    border: 1px solid rgba(200,240,0,0.2);
+    padding: 32px;
+    margin: 32px 0;
+  }
+
+  .highlight-box p {
+    font-size: 15px;
+    color: var(--white);
+    line-height: 1.7;
+    font-style: italic;
+  }
+
+  .highlight-box strong {
+    color: var(--accent);
+    font-style: normal;
+  }
+
+  /* ── PROSE ── */
+  .prose {
+    font-size: 15px;
+    color: rgba(245,243,238,0.75);
+    line-height: 1.8;
+    max-width: 720px;
+  }
+
+  .prose + .prose { margin-top: 16px; }
+
+  .prose strong { color: var(--white); font-weight: 600; }
+
+  .prose-full { max-width: 100%; }
+
+  /* ── PILL LIST ── */
+  .pill-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 20px;
+  }
+
+  .pill {
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid var(--border);
+    color: rgba(245,243,238,0.8);
+    padding: 7px 16px;
+    border-radius: 2px;
+  }
+
+  /* ── PHASE TIMELINE ── */
+  .timeline {
+    margin-top: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .phase-item {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 0;
+    position: relative;
+  }
+
+  .phase-time {
+    padding: 24px 24px 24px 0;
+    border-right: 2px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+  }
+
+  .phase-time::after {
+    content: '';
+    position: absolute;
+    right: -7px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 12px;
+    height: 12px;
+    background: var(--black);
+    border: 2px solid var(--accent);
+    border-radius: 50%;
+  }
+
+  .phase-time span {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+  }
+
+  .phase-body {
+    padding: 24px 0 24px 32px;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+
+  .phase-item:last-child .phase-body { border-bottom: none; }
+
+  .phase-label {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--mid);
+    margin-bottom: 8px;
+  }
+
+  .phase-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 24px;
+    color: var(--white);
+    margin-bottom: 10px;
+  }
+
+  .phase-desc {
+    font-size: 13px;
+    color: rgba(245,243,238,0.55);
+    line-height: 1.6;
+  }
+
+  /* ── RESPONSIBILITY TABLE ── */
+  .resp-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    margin-top: 8px;
+  }
+
+  .resp-col {
+    background: var(--black);
+    padding: 28px;
+  }
+
+  .resp-header {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    letter-spacing: 0.03em;
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 2px solid;
+  }
+
+  .resp-col:nth-child(1) .resp-header { color: var(--accent); border-color: var(--accent); }
+  .resp-col:nth-child(2) .resp-header { color: #9b8fff; border-color: #9b8fff; }
+  .resp-col:nth-child(3) .resp-header { color: #ff9b6a; border-color: #ff9b6a; }
+
+  .resp-item {
+    font-size: 13px;
+    color: rgba(245,243,238,0.65);
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    line-height: 1.5;
+  }
+
+  .resp-item:last-child { border-bottom: none; }
+
+  /* ── Q&A SECTION ── */
+  .qa-list { display: flex; flex-direction: column; gap: 2px; }
+
+  .qa-item {
+    border: 1px solid var(--border);
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+
+  .qa-item.open { border-color: rgba(200,240,0,0.25); }
+
+  .qa-question {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 22px 24px;
+    cursor: pointer;
+    gap: 20px;
+    background: rgba(255,255,255,0.02);
+    transition: background 0.2s;
+  }
+
+  .qa-question:hover { background: rgba(255,255,255,0.04); }
+
+  .qa-q-text {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--white);
+  }
+
+  .qa-toggle {
+    width: 28px;
+    height: 28px;
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 18px;
+    color: var(--mid);
+    transition: all 0.3s;
+    border-radius: 2px;
+  }
+
+  .qa-item.open .qa-toggle {
+    background: var(--accent);
+    color: var(--black);
+    border-color: var(--accent);
+    transform: rotate(45deg);
+  }
+
+  .qa-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+  }
+
+  .qa-answer-inner {
+    padding: 0 24px 24px;
+    font-size: 14px;
+    color: rgba(245,243,238,0.65);
+    line-height: 1.75;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    padding-top: 20px;
+  }
+
+  .qa-answer-inner strong { color: var(--white); }
+
+  /* ── ARCH DIAGRAM ── */
+  .arch-diagram {
+    background: rgba(255,255,255,0.02);
+    border: 1px solid var(--border);
+    padding: 40px;
+    margin-top: 8px;
+  }
+
+  .arch-row {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+    position: relative;
+  }
+
+  .arch-row::after {
+    content: '↓';
+    position: absolute;
+    bottom: -22px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: var(--accent);
+    font-size: 18px;
+  }
+
+  .arch-row:last-child::after { display: none; }
+
+  .arch-node {
+    padding: 14px 20px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-align: center;
+    border-radius: 2px;
+    min-width: 120px;
+  }
+
+  .arch-node.primary {
+    background: var(--accent);
+    color: var(--black);
+  }
+
+  .arch-node.secondary {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid var(--border);
+    color: var(--white);
+  }
+
+  .arch-node.tertiary {
+    background: rgba(155,143,255,0.1);
+    border: 1px solid rgba(155,143,255,0.3);
+    color: #9b8fff;
+  }
+
+  .arch-spacer { height: 28px; }
+
+  /* ── NEXT STEPS ── */
+  .steps-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 8px;
+  }
+
+  .step-item {
+    display: grid;
+    grid-template-columns: 56px 1fr;
+    gap: 24px;
+    align-items: start;
+    padding: 28px;
+    border: 1px solid var(--border);
+    transition: border-color 0.3s, background 0.3s;
+  }
+
+  .step-item:hover {
+    border-color: rgba(200,240,0,0.25);
+    background: rgba(200,240,0,0.02);
+  }
+
+  .step-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 48px;
+    line-height: 1;
+    color: rgba(200,240,0,0.3);
+  }
+
+  .step-content h4 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 26px;
+    color: var(--white);
+    margin-bottom: 10px;
+    letter-spacing: 0.03em;
+  }
+
+  .step-content p {
+    font-size: 13px;
+    color: rgba(245,243,238,0.55);
+    line-height: 1.7;
+  }
+
+  /* ── DECISION BOX ── */
+  .decision-box {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border);
+    padding: 32px;
+    margin-top: 40px;
+  }
+
+  .decision-box h4 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    color: var(--accent);
+    margin-bottom: 20px;
+    letter-spacing: 0.03em;
+  }
+
+  .decision-item {
+    display: flex;
+    gap: 16px;
+    padding: 14px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    font-size: 14px;
+    color: rgba(245,243,238,0.7);
+    line-height: 1.6;
+  }
+
+  .decision-item:last-child { border-bottom: none; }
+
+  .decision-check {
+    color: var(--accent);
+    font-size: 16px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #050505;
+    padding: 60px 40px;
+    border-top: 1px solid var(--border);
+  }
+
+  .footer-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+  }
+
+  .footer-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 48px;
+    color: var(--white);
+    line-height: 1;
+    letter-spacing: 0.02em;
+  }
+
+  .footer-logo span { color: var(--accent); }
+
+  .footer-meta {
+    text-align: right;
+  }
+
+  .footer-meta p {
+    font-size: 12px;
+    color: var(--mid);
+    line-height: 1.7;
+  }
+
+  .footer-meta strong { color: var(--white); }
+
+  /* ── ANIMATION ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── DIVIDER ── */
+  .divider {
+    height: 1px;
+    background: var(--border);
+    margin: 40px 0;
+  }
+
+  /* ── WARNING BOX ── */
+  .warning-box {
+    background: rgba(255,100,60,0.07);
+    border: 1px solid rgba(255,100,60,0.25);
+    padding: 24px 28px;
+    margin: 24px 0;
+  }
+
+  .warning-box p {
+    font-size: 13px;
+    color: rgba(245,243,238,0.75);
+    line-height: 1.7;
+  }
+
+  .warning-box strong { color: #ff9b6a; }
+
+  /* ── SCROLLBAR ── */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--black); }
+  ::-webkit-scrollbar-thumb { background: rgba(200,240,0,0.4); }
+
+  @media (max-width: 900px) {
+    nav { padding: 14px 20px; }
+    .nav-links { display: none; }
+    .hero { padding: 100px 20px 40px; }
+    .hero-meta { flex-direction: column; gap: 32px; align-items: flex-start; }
+    .hero-stats { align-self: stretch; justify-content: flex-start; }
+    .toc-inner { grid-template-columns: 1fr; gap: 32px; }
+    .exec-inner { grid-template-columns: 1fr; gap: 40px; }
+    .two-col { grid-template-columns: 1fr; gap: 24px; }
+    .three-col { grid-template-columns: 1fr; }
+    .resp-grid { grid-template-columns: 1fr; }
+    .report-section, .toc-section, .exec-section { padding: 60px 20px; }
+    .section-num { font-size: 60px; }
+    .footer-inner { flex-direction: column; gap: 20px; align-items: flex-start; }
+    .footer-meta { text-align: left; }
+    .arch-diagram { padding: 24px 16px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">sevenstudios®</a>
+  <ul class="nav-links">
+    <li><a href="#summary">Summary</a></li>
+    <li><a href="#background">Background</a></li>
+    <li><a href="#ecosystem">Ecosystem</a></li>
+    <li><a href="#ghutte">Ghutte &amp; GoKollab</a></li>
+    <li><a href="#optionc">Option C</a></li>
+    <li><a href="#roles">Roles</a></li>
+    <li><a href="#roadmap">Roadmap</a></li>
+    <li><a href="#conclusion">Conclusion</a></li>
+  </ul>
+  <div class="nav-tag">Mobile App Strategy · 2026</div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-label">Prepared for Wisdom &amp; Wellness · Comprehensive Findings &amp; Recommendations</div>
+  <h1 class="hero-title">
+    Mobile App<br><span>Strategy</span><br>Report
+  </h1>
+  <div class="hero-meta">
+    <p class="hero-desc">
+      This report clarifies the strategic direction for your mobile app, given your existing Ghutte and GoKollab infrastructure and the parallel engagement of Sevenstudios and ClubSheIs. It gives you a clear picture of what exists today, realistic limitations and opportunities, and a recommended path forward.
+    </p>
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-num">24–36</div>
+        <div class="stat-label">Month Ownership Horizon</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">3</div>
+        <div class="stat-label">Roadmap Phases</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">10</div>
+        <div class="stat-label">Report Sections</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TABLE OF CONTENTS -->
+<section class="toc-section">
+  <div class="toc-inner">
+    <div class="toc-header">
+      <h2>Contents</h2>
+      <p>Navigate directly to any section of this report using the index below.</p>
+    </div>
+    <div class="toc-list">
+      <a class="toc-item" href="#summary"><span class="toc-num">00</span><span class="toc-title">Executive Summary</span><span class="toc-arrow">→</span></a>
+      <a class="toc-item" href="#background"><span class="toc-num">01</span><span class="toc-title">Background &amp; Objectives</span><span class="toc-arrow">→</span></a>
+      <a class="toc-item" href="#ecosystem"><span class="toc-num">02</span><span class="toc-title">Your Ecosystem &amp; Business Priorities Today</span><span class="toc-arrow">→</span></a>
+      <a class="toc-item" href="#ghutte"><span class="toc-num">03</span><span class="toc-title">Ghutte, GoKollab &amp; ClubSheIs — Clarified</span><span class="toc-arrow">→</span></a>
+      <a class="toc-item" href="#optionc"><span class="toc-num">04</span><span class="toc-title">The Option C Proposal &amp; Why It Needs Reframing</span><span class="toc-arrow">→</span></a>
+      <a class="toc-item" href="#ghl"><span class="toc-num">05</span><span class="toc-title">GoHighLevel — What It Can &amp; Cannot Do For You</span><span class="toc-arrow">→</span></a>
+      <a class="toc-item" href="#limits"><span class="toc-num">06</span><span class="toc-title">Limitations, Risks &amp; Realistic Possibilities</span><span class="toc-arrow">→</span></a>
+      <a class="toc-item" href="#roles"><span class="toc-num">07</span><span class="toc-title">Recommended Role Split</span><span class="toc-arrow">→</span></a>
+      <a class="toc-item" href="#roadmap"><span class="toc-num">08</span><span class="toc-title">Your Roadmap — Three Phases</span><span class="toc-arrow">→</span></a>
+      <a class="toc-item" href="#technical"><span class="toc-num">09</span><span class="toc-title">How a Future WW App Would Work</span><span class="toc-arrow">→</span></a>
+      <a class="toc-item" href="#conclusion"><span class="toc-num">10</span><span class="toc-title">Conclusion &amp; Immediate Decisions</span><span class="toc-arrow">→</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- EXEC SUMMARY -->
+<section class="exec-section" id="summary">
+  <div class="exec-inner">
+    <div class="exec-left">
+      <h2>Executive Summary</h2>
+      <p>Four strategic conclusions that shape everything in this report — and the decisions you need to make as a leadership team.</p>
+    </div>
+    <div class="exec-right">
+      <div class="exec-point">
+        <p><strong>Your current priority is business performance, not platform ownership.</strong> A 24–36 month horizon for full digital ownership is realistic and the right call. Do not rush a full custom build.</p>
+      </div>
+      <div class="exec-point">
+        <p><strong>Ghutte and GoKollab already power your business.</strong> Your membership, community, CRM, payments, funnels, and automations are running today. These systems should not be duplicated or destabilised in the short term.</p>
+      </div>
+      <div class="exec-point">
+        <p><strong>Sevenstudios and ClubSheIs serve different, complementary roles.</strong> ClubSheIs is your GoHighLevel/Ghutte technology and revenue partner. Sevenstudios is your product, UX, and long-term owned-stack partner. Both are needed — with a clear split.</p>
+      </div>
+      <div class="exec-point">
+        <p><strong>Option C should be a design and architecture track now — not a full build.</strong> The concept is strategically sound. Full development should be deferred until you are structurally and financially ready to commit.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 1: BACKGROUND -->
+<section class="report-section" id="background">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <div class="section-num">01</div>
+      <div class="section-title-block">
+        <div class="section-label">Background &amp; Objectives</div>
+        <h2 class="section-title">What You Asked For &amp; Why This Report Exists</h2>
+      </div>
+    </div>
+
+    <div class="two-col reveal">
+      <div>
+        <p class="prose">Your internal brief describes a centralised mobile application that becomes the <strong>digital home</strong> for your ecosystem — community, wellness content, events, products, and services, all in one place.</p>
+        <div class="divider"></div>
+        <div class="three-col" style="gap:16px;">
+          <div class="card">
+            <div class="card-icon">🏠</div>
+            <h4>A Container</h4>
+            <p>For all WW offerings — membership, Aneno salon bookings, events, programs, fasts, podcasts, and digital resources.</p>
+          </div>
+          <div class="card">
+            <div class="card-icon">🔗</div>
+            <h4>A Companion</h4>
+            <p>That integrates with Ghutte and GoKollab without immediately replacing them on day one.</p>
+          </div>
+          <div class="card">
+            <div class="card-icon">💛</div>
+            <h4>A Daily Tool</h4>
+            <p>"Almost like having Mpoomy Ledwaba in your pocket" — daily reminders, readings, and wellness tracking.</p>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="section-label" style="margin-bottom:16px;">The Problem You Are Solving</div>
+        <div class="card" style="margin-bottom:12px;">
+          <h4>Fragmentation</h4>
+          <p>Your content, community, programs, events, and resources currently live on separate platforms with no unified journey.</p>
+        </div>
+        <div class="card" style="margin-bottom:12px;">
+          <h4>No Single Entry Point</h4>
+          <p>Your members are asking for one place to arrive, one login, and one clear sense of belonging and progress.</p>
+        </div>
+        <div class="card">
+          <h4>Disconnected Tech Stack</h4>
+          <p>Multiple tools — Zoom equivalents, Step Up equivalents, ticketing — with no orientation layer where users feel they have arrived at WW.</p>
+        </div>
+
+        <div class="highlight-box" style="margin-top:24px;">
+          <p>The intended experience is <strong>calm, warm, clear, supportive and non-performative.</strong> This is explicitly not a social media platform and should not feel like a loud, gamified wellness product.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider reveal"></div>
+    <div class="section-label reveal">What This Report Synthesises</div>
+    <div class="pill-list reveal">
+      <span class="pill">Your internal mobile app brief</span>
+      <span class="pill">Sevenstudios Option C proposal</span>
+      <span class="pill">Phase 0 research &amp; discovery</span>
+      <span class="pill">ClubSheIs x Seven discovery session</span>
+      <span class="pill">GoHighLevel API &amp; integration capabilities</span>
+      <span class="pill">White-label mobile model analysis</span>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 2: ECOSYSTEM -->
+<section class="report-section" id="ecosystem">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <div class="section-num">02</div>
+      <div class="section-title-block">
+        <div class="section-label">Your Business Today</div>
+        <h2 class="section-title">Your Ecosystem &amp; Business Priorities</h2>
+      </div>
+    </div>
+
+    <div class="section-label reveal" style="margin-bottom:20px;">The WW Ecosystem — Mapped</div>
+    <div class="three-col reveal">
+      <div class="card"><div class="card-icon">🎙️</div><h4>Podcast &amp; Audio</h4><p>Your emotional entry layer. It builds trust and drives discovery of events and membership — the top-of-funnel connector for new audiences.</p></div>
+      <div class="card"><div class="card-icon">👥</div><h4>Girl Pal Squad Membership</h4><p>Your core belonging layer. This is where members engage day-to-day. Currently supported by Ghutte and GoKollab.</p></div>
+      <div class="card"><div class="card-icon">🎪</div><h4>Live Events</h4><p>Unlimited WalkFest and other transformational physical experiences that generate direct ticket revenue and deep brand loyalty.</p></div>
+      <div class="card"><div class="card-icon">🌱</div><h4>Programs &amp; Journeys</h4><p>Structured digital growth experiences — fasts, challenges, guided journeys — delivered through membership and campaign flows.</p></div>
+      <div class="card"><div class="card-icon">📰</div><h4>Sunday Nuggets &amp; Newsletter</h4><p>Ongoing nurture and brand trust. A consistent touchpoint that keeps your community connected between bigger moments.</p></div>
+      <div class="card"><div class="card-icon">🛍️</div><h4>Shop &amp; Books</h4><p>Direct commerce — WW products, books, and merchandise as part of the broader ecosystem offering.</p></div>
+      <div class="card"><div class="card-icon">📸</div><h4>Instagram &amp; Social</h4><p>Your top-of-funnel discovery and brand storytelling engine, driving new audiences toward the membership and events.</p></div>
+      <div class="card"><div class="card-icon">🌐</div><h4>Website</h4><p>Information and content hub that orients new visitors and drives them toward membership, programs, and events.</p></div>
+      <div class="card" style="border-color:rgba(200,240,0,0.3); background:rgba(200,240,0,0.04);">
+        <div class="card-icon">🚪</div>
+        <h4 style="color:var(--accent);">The Gap</h4>
+        <p>Your ecosystem is rich and functioning. What is missing is an <strong>integrated orientation and journey layer</strong> that ties everything together and reduces confusion for members.</p>
+      </div>
+    </div>
+
+    <div class="divider reveal"></div>
+    <div class="section-label reveal" style="margin-bottom:20px;">Your Current Priorities &amp; Constraints</div>
+    <div class="two-col reveal">
+      <div>
+        <div class="card" style="margin-bottom:12px;">
+          <h4>Revenue &amp; Performance First</h4>
+          <p>Your stated priority is to double revenue by mid-year and potentially quadruple it by year-end. The emphasis is on <strong>function over form</strong> — systems that work and make money, ahead of pure aesthetics.</p>
+        </div>
+        <div class="card">
+          <h4>Ownership is a Long-Term Goal</h4>
+          <p>You want to own your digital infrastructure, including a fully custom app and backend — but not immediately. A 24–36 month horizon is realistic and the right call given your current scale.</p>
+        </div>
+      </div>
+      <div>
+        <div class="card" style="margin-bottom:12px;">
+          <h4>Budget &amp; Risk Awareness</h4>
+          <p>The cost of a full custom build — app plus backend — is roughly <strong>five times</strong> your typical project spend. A cautious, staged approach is required to protect your current operations.</p>
+        </div>
+        <div class="card">
+          <h4>No In-House Tech Team</h4>
+          <p>Without an internal team to maintain a complex owned stack, reliance on licensed platforms and specialist partners like ClubSheIs is not a limitation — it is the strategically sound choice right now.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="highlight-box reveal">
+      <p>Any app strategy must <strong>protect and enhance your current revenue operations</strong>, not destabilise them. This principle shapes every recommendation in this report.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 3: GHUTTE -->
+<section class="report-section" id="ghutte">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <div class="section-num">03</div>
+      <div class="section-title-block">
+        <div class="section-label">Platform Clarity</div>
+        <h2 class="section-title">Ghutte, GoKollab &amp; ClubSheIs — Clarified</h2>
+      </div>
+    </div>
+
+    <div class="two-col reveal">
+      <div>
+        <div class="section-label" style="margin-bottom:12px;">What You Are Currently Running On</div>
+        <p class="prose"><strong>Ghutte</strong> is a white-labeled implementation of GoHighLevel — a comprehensive SaaS platform for creators and membership businesses. It functions as your <strong>backend business operating system</strong>: membership, payments, CRM, sales funnels, automations, and messaging across your entire ecosystem.</p>
+        <div class="divider"></div>
+        <p class="prose"><strong>GoKollab</strong> is not a separate backend platform. It is the mobile-app-like community layer built directly on top of Ghutte/GoHighLevel — the experience your members see and use from their phones. It is, in practical terms, <strong>your current WW app</strong>, even though it carries GoKollab branding.</p>
+        <div class="highlight-box" style="margin-top:24px;">
+          <p>Your community, membership, and much of your revenue engine <strong>already live fully inside Ghutte</strong>, surfaced to your members via GoKollab. This is a strong foundation — not a problem to immediately replace.</p>
+        </div>
+      </div>
+
+      <div>
+        <div class="section-label" style="margin-bottom:16px;">The Role of ClubSheIs</div>
+        <div class="card" style="margin-bottom:12px;">
+          <h4>Your Licensed GHL Partner</h4>
+          <p>ClubSheIs holds the license and technical expertise to deploy and maintain Ghutte (GoHighLevel) and to publish white-label mobile apps on the App Store and Google Play on your behalf.</p>
+        </div>
+        <div class="card" style="margin-bottom:12px;">
+          <h4>Revenue Operations Specialists</h4>
+          <p>A marketing technology company focused on systems and automations that fix revenue leakages and support growth for women-led businesses. They migrated your community from Circle to Ghutte/GoKollab under tight deadlines.</p>
+        </div>
+        <div class="card">
+          <h4>Business Performance Lens</h4>
+          <p>ClubSheIs' primary focus is ensuring your systems work end-to-end: payments are processed reliably and automations support revenue growth. Creative direction and product design sit firmly with Sevenstudios.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 4: OPTION C -->
+<section class="report-section" id="optionc">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <div class="section-num">04</div>
+      <div class="section-title-block">
+        <div class="section-label">The Sevenstudios Proposal</div>
+        <h2 class="section-title">Option C &amp; Why It Needs Reframing</h2>
+      </div>
+    </div>
+
+    <div class="two-col reveal">
+      <div>
+        <div class="section-label" style="margin-bottom:12px;">What Option C Originally Proposed</div>
+        <p class="prose">A <strong>Strategic Hybrid Build: Orchestration Now, Ownership Later.</strong> Phase 1 would build a dedicated WW mobile app (iOS and Android) as a front-door orchestration layer integrating Ghutte and GoKollab — keeping Ghutte as the system of record and GoKollab as the community engine, while architecting for future full ownership.</p>
+        <p class="prose">The full scope covers research, product strategy, visual identity, UX, app development, integrations, and launch — over approximately eight months, with a total capped budget of around <strong>R997,000</strong>.</p>
+        <div class="highlight-box" style="margin-top:24px;">
+          <p>The Option C concept is <strong>strategically sound</strong>. The issue is not the idea — it is the timing. Full development must be deferred until you are structurally and financially ready to commit to full ownership.</p>
+        </div>
+      </div>
+
+      <div>
+        <div class="section-label" style="margin-bottom:16px;">Why It Must Be Reframed Now</div>
+        <div class="warning-box" style="margin-top:0;">
+          <p><strong>Licensing &amp; compliance risk:</strong> Deeply embedding or "merging" Ghutte inside a new custom app raises GoHighLevel licensing, compliance, and App Store/Google Play approval concerns that are not trivial to resolve.</p>
+        </div>
+        <div class="warning-box">
+          <p><strong>Duplication risk:</strong> GoKollab is already a white-label mobile app under the GoHighLevel model. A separate WW app that tightly wraps or duplicates it risks confusing your members with two primary apps.</p>
+        </div>
+        <div class="warning-box">
+          <p><strong>Full ownership cost:</strong> To truly own the stack the way you desire, a future app would ultimately need a WW-owned backend replicating large parts of Ghutte's functionality — which is not financially or operationally realistic immediately.</p>
+        </div>
+
+        <div class="card" style="margin-top:12px; border-color:rgba(200,240,0,0.3); background:rgba(200,240,0,0.04);">
+          <h4 style="color:var(--accent);">The Right Reframe</h4>
+          <p>In the near term, Option C becomes a <strong>strategy, architecture, and design track</strong> — not a commitment to immediate full development. The development phases are triggered only when you explicitly decide to invest in full ownership with the requisite budget and team capacity.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 5: GHL CAPABILITIES -->
+<section class="report-section" id="ghl">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <div class="section-num">05</div>
+      <div class="section-title-block">
+        <div class="section-label">Platform Capabilities</div>
+        <h2 class="section-title">GoHighLevel — What It Can &amp; Cannot Do</h2>
+      </div>
+    </div>
+
+    <div class="two-col reveal">
+      <div>
+        <div class="section-label" style="margin-bottom:16px;">APIs &amp; Integration Surface</div>
+        <p class="prose">GoHighLevel, the platform behind Ghutte, provides a range of integration options that are important for your future planning:</p>
+        <div class="card" style="margin-top:20px; margin-bottom:12px;">
+          <h4>REST APIs</h4>
+          <p>GoHighLevel exposes REST endpoints (v1 and v2) for contacts, messaging, workflows, calendars, and other CRM entities. Access is controlled via API keys or OAuth tokens, with capabilities varying by plan level.</p>
+        </div>
+        <div class="card" style="margin-bottom:12px;">
+          <h4>Webhooks</h4>
+          <p>HighLevel supports webhook triggers and inbound webhooks, allowing external systems to respond to events — such as form submissions or pipeline stage changes — or to initiate actions within GoHighLevel.</p>
+        </div>
+        <div class="card">
+          <h4>Third-Party Orchestration</h4>
+          <p>Ecosystem tools like Zapier and Make are commonly used to connect GoHighLevel to other apps and services, extending functionality without modifying GoHighLevel itself.</p>
+        </div>
+      </div>
+
+      <div>
+        <div class="section-label" style="margin-bottom:16px;">The White-Label Mobile Model</div>
+        <p class="prose">GoHighLevel's white-label mobile model is central to your current setup. This is how GoKollab works:</p>
+        <div class="card" style="margin-top:20px; margin-bottom:12px;">
+          <h4>Branded but GHL-Powered</h4>
+          <p>Agencies on the appropriate plan can deploy custom-branded iOS and Android apps under their own name, with their own icon, colours, and store listings — but the underlying functionality remains GoHighLevel.</p>
+        </div>
+        <div class="card" style="margin-bottom:12px;">
+          <h4>Shared Credentials</h4>
+          <p>Your members log into the white-label app using the same credentials they use on the GoHighLevel web platform — which is why GoKollab and Ghutte feel like one system to your members.</p>
+        </div>
+        <div class="highlight-box" style="margin-top:12px; margin-bottom:0;">
+          <p>What this means for you: any future WW-owned app must be <strong>clearly differentiated in scope and positioning</strong> from the GoKollab white-label app. They cannot both claim to be "the WW app."</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="highlight-box reveal" style="margin-top:40px;">
+      <p>The key opportunity: future custom WW systems can <strong>integrate at the data level</strong> with Ghutte — synchronising contacts, membership states, and key events via APIs and webhooks — without needing to embed or rewrite the Ghutte platform itself.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 6: LIMITS -->
+<section class="report-section" id="limits">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <div class="section-num">06</div>
+      <div class="section-title-block">
+        <div class="section-label">Honest Assessment</div>
+        <h2 class="section-title">Limitations, Risks &amp; Realistic Possibilities</h2>
+      </div>
+    </div>
+
+    <div class="two-col reveal">
+      <div>
+        <div class="section-label" style="margin-bottom:16px; color:#ff9b6a;">Limitations &amp; Risks to Understand</div>
+        <div class="warning-box" style="margin-top:0; margin-bottom:12px;">
+          <p><strong>Licensing &amp; compliance:</strong> Ghutte is a licensed GoHighLevel instance. Any attempt to deeply embed it inside a new custom app or present Ghutte functionality as an entirely separate native platform must respect licensing terms and App Store policies.</p>
+        </div>
+        <div class="warning-box" style="margin-bottom:12px;">
+          <p><strong>Duplication &amp; member confusion:</strong> Building a separate WW app that replicates GoKollab's membership and community features now would duplicate effort and risk confusing your members with two primary apps — the opposite of what you want to achieve.</p>
+        </div>
+        <div class="warning-box" style="margin-bottom:12px;">
+          <p><strong>Resource constraints:</strong> Without an internal tech team, you would be reliant on external partners for any custom infrastructure. A premature move into full ownership could create operational risk without sufficient internal capacity to manage it.</p>
+        </div>
+        <div class="warning-box">
+          <p><strong>Budget vs. return:</strong> A full custom stack represents a significant investment that has not yet been justified against your current scale and revenue. A phased approach is more prudent.</p>
+        </div>
+      </div>
+
+      <div>
+        <div class="section-label" style="margin-bottom:16px; color:#6bff8a;">What Is Realistically Possible</div>
+        <div class="card" style="border-color:rgba(107,255,138,0.2); margin-bottom:12px;">
+          <h4>Optimise Ghutte &amp; GoKollab Now</h4>
+          <p>Better funnels, more robust automations, improved payment workflows, and leak-fixing — e.g. subscription sync between your payment gateway and Ghutte — led by ClubSheIs and informed by Sevenstudios' UX strategy.</p>
+        </div>
+        <div class="card" style="border-color:rgba(107,255,138,0.2); margin-bottom:12px;">
+          <h4>Define a Clear Front-Door Experience</h4>
+          <p>Even if the underlying systems remain distributed, you can present members and prospects with a single, coherent WW journey — from first contact through to deep community participation.</p>
+        </div>
+        <div class="card" style="border-color:rgba(107,255,138,0.2);">
+          <h4>Design Your Future Owned App Now</h4>
+          <p>Sevenstudios can complete a full product strategy, architecture blueprint, and design system for a future WW-owned app — ready for implementation when you are financially and structurally prepared.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 7: ROLES -->
+<section class="report-section" id="roles">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <div class="section-num">07</div>
+      <div class="section-title-block">
+        <div class="section-label">Recommended Role Split</div>
+        <h2 class="section-title">Who Does What — Clearly Defined</h2>
+      </div>
+    </div>
+
+    <p class="prose reveal">A clear division of roles will resolve the "too many cooks" concern that has surfaced in discovery sessions. Here is how responsibilities should be allocated across the three parties.</p>
+
+    <div class="resp-grid reveal" style="margin-top:32px;">
+      <div class="resp-col">
+        <div class="resp-header">ClubSheIs</div>
+        <div class="resp-item">Own and operate Ghutte and GoKollab as WW's core membership and community infrastructure</div>
+        <div class="resp-item">Manage all GoHighLevel/Ghutte configurations — automations, pipelines, membership logic, and payment workflows</div>
+        <div class="resp-item">Lead white-label app deployments and ongoing App Store compliance and updates</div>
+        <div class="resp-item">Monitor and address revenue leakages — e.g. payment gateway integrations and subscription sync issues</div>
+        <div class="resp-item">Day-to-day backend operations, tech support, and system optimisation</div>
+      </div>
+      <div class="resp-col">
+        <div class="resp-header">Sevenstudios</div>
+        <div class="resp-item">Act as WW's product strategy and experience design partner for mobile and digital</div>
+        <div class="resp-item">Translate WW's brand and emotional safety principles into concrete UX patterns, design systems, and journey flows</div>
+        <div class="resp-item">Complete and evolve the Option C strategy and architecture as a blueprint for a future WW-owned app — without committing WW to immediate build</div>
+        <div class="resp-item">Collaborate with ClubSheIs to ensure current Ghutte/GoKollab experiences feel like Wisdom &amp; Wellness, not separate third-party tools</div>
+        <div class="resp-item">Define the long-term digital product vision and app ownership roadmap</div>
+      </div>
+      <div class="resp-col">
+        <div class="resp-header">Wisdom &amp; Wellness</div>
+        <div class="resp-item">Provide clarity of vision and timing — confirm the 24–36 month horizon for a fully owned stack</div>
+        <div class="resp-item">Approve strategic documents produced in the near term — product brief, architecture diagrams, UX flows</div>
+        <div class="resp-item">Decide and communicate clearly which experience is the official "WW app" at each stage</div>
+        <div class="resp-item">Greenlight full development when revenue, team capacity, and risk appetite justify the investment</div>
+        <div class="resp-item">Hold both partners accountable to their defined remits — no overlap, no gaps</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 8: ROADMAP -->
+<section class="report-section" id="roadmap">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <div class="section-num">08</div>
+      <div class="section-title-block">
+        <div class="section-label">Your Strategic Roadmap</div>
+        <h2 class="section-title">Three Phases to Full Digital Ownership</h2>
+      </div>
+    </div>
+
+    <div class="timeline reveal">
+      <div class="phase-item">
+        <div class="phase-time"><span>Now → 12 months</span></div>
+        <div class="phase-body">
+          <div class="phase-label">Phase 1 · Focus: Protect &amp; improve revenue while simplifying the user experience</div>
+          <div class="phase-title">Stabilise &amp; Clarify</div>
+          <p class="phase-desc">
+            Treat GoKollab as your primary member-facing app in the near term, with improved WW branding and navigation aligned to your calm, emotionally safe UX philosophy. Sevenstudios defines a unified "front door" journey — how users move from podcast, Instagram, and website into membership, programs, and events. ClubSheIs closes known leakages (e.g. payment gateway ↔ Ghutte subscription mismatches) and refines automations. Run foundational user research — surveys and interviews — to validate key flows and emotional safety requirements for the future app experience.
+          </p>
+        </div>
+      </div>
+      <div class="phase-item">
+        <div class="phase-time"><span>12 → 24 months</span></div>
+        <div class="phase-body">
+          <div class="phase-label">Phase 2 · Focus: Design a WW-owned app and backend on paper, ready for future implementation</div>
+          <div class="phase-title">Design the Owned Stack</div>
+          <p class="phase-desc">
+            Sevenstudios completes a detailed product strategy and architecture blueprint covering: app information architecture and navigation; user journeys and state logic for free users, members, and event-only participants; backend services layout for auth, content, programs, events, and analytics; and integration points with Ghutte through GoHighLevel APIs and webhooks. Finalise a mobile design system — typography, colour, components, interaction patterns — that embodies WW's brand and emotional safety standards. Conduct a financial and operational review to determine readiness for a full build.
+          </p>
+        </div>
+      </div>
+      <div class="phase-item">
+        <div class="phase-time"><span>24 → 36+ months</span></div>
+        <div class="phase-body">
+          <div class="phase-label">Phase 3 · Subject to WW readiness — focus: build the owned app, integrate, and manage a careful transition</div>
+          <div class="phase-title">Build &amp; Transition</div>
+          <p class="phase-desc">
+            Build a WW backend — user management, content services, programs, events, analytics — aligned with the architecture defined in Phase 2. Build iOS and Android apps (e.g. React Native or Flutter) using the design system and UX flows from earlier phases. Integrate with Ghutte via GoHighLevel APIs and webhooks, ensuring data synchronisation for contacts, membership states, and key events. Plan a staged migration strategy: the new WW app initially acts as a superior experience layer while Ghutte continues to power core revenue operations, and only later hands over more logic to the WW backend.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 9: TECHNICAL -->
+<section class="report-section" id="technical">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <div class="section-num">09</div>
+      <div class="section-title-block">
+        <div class="section-label">Technical Overview</div>
+        <h2 class="section-title">How a Future WW App Would Actually Work</h2>
+      </div>
+    </div>
+
+    <div class="two-col reveal">
+      <div>
+        <div class="section-label" style="margin-bottom:16px;">High-Level Architecture</div>
+        <div class="arch-diagram">
+          <div class="arch-row">
+            <div class="arch-node primary">WW iOS App</div>
+            <div class="arch-node primary">WW Android App</div>
+          </div>
+          <div class="arch-spacer"></div>
+          <div class="arch-row">
+            <div class="arch-node secondary">WW Backend Services</div>
+          </div>
+          <div class="arch-spacer"></div>
+          <div class="arch-row">
+            <div class="arch-node tertiary">Auth + Users</div>
+            <div class="arch-node tertiary">Content + Programs</div>
+            <div class="arch-node tertiary">Events + Analytics</div>
+          </div>
+          <div class="arch-spacer"></div>
+          <div class="arch-row">
+            <div class="arch-node secondary">Integration Layer (APIs + Webhooks)</div>
+          </div>
+          <div class="arch-spacer"></div>
+          <div class="arch-row">
+            <div class="arch-node secondary" style="background:rgba(255,155,106,0.08); border-color:rgba(255,155,106,0.3); color:#ff9b6a;">Ghutte / GHL</div>
+            <div class="arch-node secondary" style="background:rgba(255,155,106,0.08); border-color:rgba(255,155,106,0.3); color:#ff9b6a;">Payment Gateway</div>
+            <div class="arch-node secondary" style="background:rgba(255,155,106,0.08); border-color:rgba(255,155,106,0.3); color:#ff9b6a;">Ticketing / Zoom</div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="section-label" style="margin-bottom:16px;">What the App Would Deliver</div>
+        <div class="card" style="margin-bottom:12px;">
+          <h4>Mobile Clients</h4>
+          <p>iOS and Android apps built on a shared codebase — calm, non-performative Home and Dashboard views; flows for membership sign-up, programs and journeys, events and resources; progress tracking views that reinforce reflection, not comparison.</p>
+        </div>
+        <div class="card" style="margin-bottom:12px;">
+          <h4>WW Backend Services</h4>
+          <p>Authentication and user management; content catalogue (audio, video, articles, PDFs) with access rules; programs and journeys engine with stages, milestones, and reminders; events management; notifications; and analytics and personalisation.</p>
+        </div>
+        <div class="card">
+          <h4>Integration With Ghutte</h4>
+          <p>REST API clients that create and update contacts, tags, and custom fields in Ghutte. Webhook endpoints that receive event notifications from Ghutte — new purchases, subscription changes — and update WW backend state accordingly. Over time, WW can reduce dependence on Ghutte for certain functions without any sudden or risky system changes.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 10: CONCLUSION -->
+<section class="report-section" id="conclusion">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <div class="section-num">10</div>
+      <div class="section-title-block">
+        <div class="section-label">Conclusion</div>
+        <h2 class="section-title">Your Immediate Decisions &amp; Path Forward</h2>
+      </div>
+    </div>
+
+    <p class="prose reveal">Wisdom &amp; Wellness is well positioned to evolve into a coherent, owned digital universe — without sacrificing current performance. <strong>The key is sequencing.</strong> You have a rich, functioning ecosystem. What you need is clarity on what happens in what order.</p>
+
+    <div class="section-label reveal" style="margin-top:40px; margin-bottom:24px;">Decisions to Make Now</div>
+    <div class="steps-list reveal">
+      <div class="step-item">
+        <div class="step-num">01</div>
+        <div class="step-content">
+          <h4>Confirm Ghutte &amp; GoKollab as Your Operational Foundation</h4>
+          <p>Confirm formally that Ghutte and GoKollab remain your operational foundation, managed by ClubSheIs. This is not a limitation — it is the right infrastructure for where you are today. Removing ambiguity here protects your revenue and prevents conflicting technical decisions.</p>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">02</div>
+        <div class="step-content">
+          <h4>Position GoKollab as the Official WW Member App Now</h4>
+          <p>Decide to position GoKollab as your current official WW member app, with improved UX and branding guided by Sevenstudios. This closes the gap between what your members experience today and what it should feel like — without waiting for a custom build.</p>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">03</div>
+        <div class="step-content">
+          <h4>Commission the Strategy, Architecture &amp; Design Track</h4>
+          <p>Commission Sevenstudios to complete the strategy, architecture, and design phases of Option C — the "thinking work" — without committing to immediate development. This gives you a complete blueprint that can be implemented by any development partner when the time is right, and that is 100% valuable regardless of when the build happens.</p>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">04</div>
+        <div class="step-content">
+          <h4>Use the Blueprint to Decide When to Build</h4>
+          <p>In the medium to long term, use the resulting blueprints to decide — based on revenue, team capacity, and risk appetite — when to invest in a fully owned app and backend. Proceed with a deliberate build and migration plan that leverages Ghutte's strengths, respects licensing and platform integrity, and ultimately delivers on your vision of complete digital ownership.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="highlight-box reveal" style="margin-top:40px;">
+      <p>This approach <strong>balances ambition with realism</strong> — protecting your present while carefully constructing your digital future. You will not sacrifice revenue operations for a speculative build, and you will not sacrifice your long-term ownership vision for short-term convenience.</p>
+    </div>
+
+    <div class="decision-box reveal">
+      <h4>The Immediate Decisions Checklist</h4>
+      <div class="decision-item"><span class="decision-check">→</span><span>Confirm Ghutte + GoKollab remain the operational foundation under ClubSheIs</span></div>
+      <div class="decision-item"><span class="decision-check">→</span><span>Designate GoKollab as the official current WW member app, with WW branding and UX improvements</span></div>
+      <div class="decision-item"><span class="decision-check">→</span><span>Commission Sevenstudios for Option C Phase 1–4 (strategy, architecture, design) without committing to full development</span></div>
+      <div class="decision-item"><span class="decision-check">→</span><span>Confirm the 24–36 month horizon for full owned stack as the planning assumption for both partners</span></div>
+      <div class="decision-item"><span class="decision-check">→</span><span>Approve a shared collaboration charter between ClubSheIs and Sevenstudios that removes all role ambiguity</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-logo">seven<span>studios</span>®</div>
+      <p style="font-size:12px; color:var(--mid); margin-top:12px;">Faith-First Creative Studio · Cape Town, South Africa</p>
+    </div>
+    <div class="footer-meta">
+      <p><strong>Wisdom &amp; Wellness Mobile App Strategy Report</strong></p>
+      <p>Comprehensive Findings &amp; Recommendations</p>
+      <p>Prepared by Sevenstudios for Wisdom &amp; Wellness · 2026</p>
+      <p style="margin-top:8px; color:rgba(107,107,107,0.6);">INFO@THESEVENSTUDIO.CO.ZA</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Smooth TOC scroll
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        window.scrollTo({ top: target.offsetTop - 80, behavior: 'smooth' });
+      }
+    });
+  });
+</script>
+</body>
+</html>
